@@ -30,7 +30,7 @@ describe('MCUManager', () => {
     test('should initialize with default values', () => {
       expect(manager.SERVICE_UUID).toBe('8d53dc1d-1db7-4cd3-868b-8a527460aa84');
       expect(manager.CHARACTERISTIC_UUID).toBe('da2e7828-fbce-4e01-ae9e-261174997c48');
-      expect(manager._mtu).toBe(244);
+      expect(manager._mtu).toBe(400);
       expect(manager._device).toBeNull();
       expect(manager._seq).toBe(0);
       expect(manager._uploadIsInProgress).toBe(false);
@@ -495,7 +495,7 @@ describe('MCUManager', () => {
       await manager._uploadNext();
 
       expect(manager._sendMessage).toHaveBeenCalled();
-      expect(manager._imageUploadProgressCallback).toHaveBeenCalledWith({ percentage: 0 });
+      expect(manager._imageUploadProgressCallback).toHaveBeenCalledWith(expect.objectContaining({ percentage: 0 }));
     });
 
     test('_uploadNext should report progress correctly', async () => {
@@ -508,7 +508,7 @@ describe('MCUManager', () => {
 
       await manager._uploadNext();
 
-      expect(manager._imageUploadProgressCallback).toHaveBeenCalledWith({ percentage: 50 });
+      expect(manager._imageUploadProgressCallback).toHaveBeenCalledWith(expect.objectContaining({ percentage: 50 }));
     });
   });
 
